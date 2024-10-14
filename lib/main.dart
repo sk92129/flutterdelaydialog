@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +28,16 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+const String htmlSample = 
+'''
+  <h3>Heading</h3>
+  <p>
+    A paragraph with <strong>strong</strong>, <em>emphasized</em>
+    and <span style="color: red">colored</span> text.
+  </p>
+  ''';
+
+
 class _MyHomePageState extends State<MyHomePage> {
 
  @override
@@ -38,7 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
           builder: (BuildContext context) {
             return  AlertDialog(
               title: const Text("hello"),
-              content: const Text("world"),
+              content: const Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("world"),
+                  SizedBox(height: 10),
+                  HtmlWidget(htmlSample),
+                ],
+              ),
               actions: <Widget> [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(context),
